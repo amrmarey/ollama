@@ -13,11 +13,11 @@ This repository provides a Docker Compose setup for running Ollama and Open-WebU
 
 ### Features
 
-NVIDIA GPU Support: Both services are configured to use NVIDIA GPU support, allowing you to take advantage of GPU acceleration.
+- **NVIDIA GPU Support**: Both services are configured to use NVIDIA GPU support, allowing you to take advantage of GPU acceleration.
 
-Healthchecks: Both services include healthchecks to ensure they are running correctly and can be restarted automatically if they fail.
+- **Healthchecks**: Both services include healthchecks to ensure they are running correctly and can be restarted automatically if they fail.
 
-Dependency Management: The Open-WebUI service depends on the Ollama service, ensuring that Ollama is started before Open-WebUI.
+- **Dependency Management**: The Open-WebUI service depends on the Ollama service, ensuring that Ollama is started before Open-WebUI.
 
 ## UsageUsage
 ### Step 1: Clone the repository
@@ -34,7 +34,7 @@ Install Docker and Docker Compose on your system.
 
 ### Step 4: Access the Open-WebUI interface
 
-Access the Open-WebUI interface at `http://localhost:5000 `
+Access the Open-WebUI interface at [http://localhost:5000](http://localhost:5000 "http://localhost:5000")
 
 ## Configuration
 
