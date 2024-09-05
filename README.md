@@ -14,20 +14,22 @@ This repository provides a **Docker Compose** setup for running **Ollama** and *
 - **Healthchecks**: Ensures service reliability and automatic restarts upon failure.
 - **Dependency Management**: Open-WebUI depends on Ollama, ensuring Ollama starts first.
 
+
 ## ⚙️ Usage
 
 ### Step 1: Clone the Repository
-\`\`\`bash
-git clone https://github.com/amrmarey/ollama.git
-\`\`\`
 
+
+    git clone https://github.com/amrmarey/ollama.git
+    cd ollama
+    
 ### Step 2: Install Docker and Docker Compose
 Make sure you have [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) installed on your system.
 
 ### Step 3: Start the Services
-\`\`\`bash
-docker-compose up -d
-\`\`\`
+
+`docker-compose up -d`
+
 
 ### Step 4: Access Open-WebUI
 Navigate to [http://localhost:5000](http://localhost:5000) to interact with the Open-WebUI interface.
@@ -36,19 +38,23 @@ Navigate to [http://localhost:5000](http://localhost:5000) to interact with the 
 
 Customize the setup with the following environment variables:
 
-- \`ENV\`: Default is \`production\`. Change to \`development\` for debugging.
-- \`OLLAMA_BASE_URL\`: Default is \`http://ollama:11434\`. Modify to connect to a different Ollama instance.
+| Variable            | Value           | Description                                              |
+|---------------------|-------------------------|----------------------------------------------------------|
+| `ENV`               | `production`            | Change to `development` for debugging.                   |
+| `OLLAMA_BASE_URL`   | `http://ollama:11434`   | Modify to connect to a different Ollama instance.        |
+
 
 ## 🔧 Troubleshooting
 
-- Check logs for troubleshooting:
-\`\`\`bash
-docker-compose logs -f <service_name>
-\`\`\`
-- Access the container to investigate further:
-\`\`\`bash
-docker-compose exec <service_name> bash
-\`\`\`
+- ** Check logs for troubleshooting:
+**
+	`docker-compose logs -f <service_name>`
+
+- **Access the container to investigate further:**
+
+	`docker-compose exec <service_name>`
+
+
 
 ## 🤝 Contributing
 
