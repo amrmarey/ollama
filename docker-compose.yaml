@@ -1,0 +1,52 @@
+version: '3.8'  # Ensure compatibility with the necessary features
+
+services:
+  ollama:
+    image: ollama/ollama:latest  # Use the latest Ollama image from Docker Hub
+    networks:
+      - llama-net
+    runtime: nvidia  # Enable NVIDIA GPU support for this container
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1  # Allocate one NVIDIA GPU to the container
+              capabilities: [gpu]
+    environment:
+      - ENV=production  # Set environment to production
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434"]  # Healthcheck to verify Ollama is running
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:latest  # Pull Open-WebUI from GitHub Container Registry
+    ports:
+      - "5000:8080"  # Expose Open-WebUI on port 5000 of the host system
+    networks:
+      - llama-net
+    runtime: nvidia  # Enable NVIDIA GPU support for this container
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1  # Allocate one NVIDIA GPU to the container
+              capabilities: [gpu]
+    depends_on:
+      - ollama  # Ensure Ollama starts before Open-WebUI
+    environment:
+      - OLLAMA_BASE_URL='http://ollama:11434' # Ollama is accessible via the service name
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]  # Healthcheck to verify Open-WebUI is running
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+networks:
+  llama-net:
+    driver: bridge  # Use bridge networking to connect services within this compose setup
