@@ -27,13 +27,13 @@ services:
     networks:
       - llama-net
     runtime: nvidia  # Enable NVIDIA GPU support for this container
-#    deploy:
-#     resources:
-#        reservations:
-#          devices:
-#            - driver: nvidia
-#              count: 1  # Allocate one NVIDIA GPU to the container.
-#              capabilities: [gpu]
+    deploy:
+      resources:
+        reservations:
+          devices:
+           - driver: nvidia
+             count: 1  # Allocate one NVIDIA GPU to the container.
+             capabilities: [gpu]
     depends_on:
       - ollama  # Ensure Ollama starts before Open-WebUI
     environment:
