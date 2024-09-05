@@ -22,45 +22,37 @@ Dependency Management: The Open-WebUI service depends on the Ollama service, ens
 ## UsageUsage
 ### Step 1: Clone the repository
 
-bash
 
 `git clone https://github.com/amrmarey/ollama.git`
 
 ### Step 2: Install Docker and Docker Compose
 
 Install Docker and Docker Compose on your system.
-Step 3: Start the services
+### Step 3: Start the services
 
-bash
+`docker-compose up -d`
 
-`docker-compose up -d
-`
 ### Step 4: Access the Open-WebUI interface
 
-Access the Open-WebUI interface at http://localhost:5000.
-Configuration
+Access the Open-WebUI interface at `http://localhost:5000 `
+
+## Configuration
 
 The following environment variables can be set to customize the setup:
 
-ENV: Set to `production` by default, can be changed to development for debugging purposes.
+- `ENV`: Set to `production` by default, can be changed to development for debugging purposes.
 
-OLLAMA_BASE_URL: Set to `http://ollama:11434` by default, can be changed to point to a different Ollama instance.
+- `OLLAMA_BASE_URL`: Set to `http://ollama:11434` by default, can be changed to point to a different Ollama instance.
 
 ## TroubleshootingTroubleshooting
 
 If you encounter issues with the setup, check the logs for each service using:
+`docker-compose logs -f <service_name>`
 
-bash
-
-`docker-compose logs -f <service_name>
-`
 You can also use:
-
-bash
-
-`docker-compose exec <service_name> bash
-`
+`docker-compose exec <service_name> `
 to access the container and troubleshoot issues.
+
 ## Contributing
 
 Pull requests and issues are welcome! If you'd like to contribute to this repository, please fork and submit a pull request with your changes.
