@@ -1,5 +1,3 @@
-version: '3.8'  # Ensure compatibility with the necessary features
-
 services:
   ollama:
     image: ollama/ollama:latest  # Use the latest Ollama image from Docker Hub
@@ -39,7 +37,7 @@ services:
     depends_on:
       - ollama  # Ensure Ollama starts before Open-WebUI
     environment:
-      - OLLAMA_BASE_URL='http://ollama:11434' # Ollama is accessible via the service name
+      - OLLAMA_BASE_URL=http://ollama:11434
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080"]  # Healthcheck to verify Open-WebUI is running
       interval: 30s
