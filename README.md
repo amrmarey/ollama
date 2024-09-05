@@ -46,8 +46,7 @@ Customize the setup with the following environment variables:
 
 ## 🔧 Troubleshooting
 
-- ** Check logs for troubleshooting:
-**
+- **Check logs for troubleshooting:**
 	`docker-compose logs -f <service_name>`
 
 - **Access the container to investigate further:**
