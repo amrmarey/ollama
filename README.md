@@ -19,8 +19,8 @@ Healthchecks: Both services include healthchecks to ensure they are running corr
 
 Dependency Management: The Open-WebUI service depends on the Ollama service, ensuring that Ollama is started before Open-WebUI.
 
-##UsageUsage
-###Step 1: Clone the repository
+## UsageUsage
+### Step 1: Clone the repository
 
 bash
 
