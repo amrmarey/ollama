@@ -26,14 +26,14 @@ services:
       - "5000:8080"  # Expose Open-WebUI on port 5000 of the host system
     networks:
       - llama-net
-    runtime: nvidia  # Enable NVIDIA GPU support for this container
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1  # Allocate one NVIDIA GPU to the container
-              capabilities: [gpu]
+#    runtime: nvidia  # Enable NVIDIA GPU support for this container
+#    deploy:
+#     resources:
+#        reservations:
+#          devices:
+#            - driver: nvidia
+#              count: 1  # Allocate one NVIDIA GPU to the container
+#              capabilities: [gpu]
     depends_on:
       - ollama  # Ensure Ollama starts before Open-WebUI
     environment:
