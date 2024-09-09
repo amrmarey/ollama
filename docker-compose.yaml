@@ -39,7 +39,7 @@ services:
     environment:
       - OLLAMA_BASE_URL=http://ollama:11434
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080"]  # Healthcheck to verify Open-WebUI is running
+      test: ["CMD", "curl", "-f", "http://localhost:5000"]  # Healthcheck to verify Open-WebUI is running
       interval: 30s
       timeout: 10s
       retries: 3
