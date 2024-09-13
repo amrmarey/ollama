@@ -1,3 +1,4 @@
+version: '3'
 services:
   ollama:
     image: ollama/ollama:latest
@@ -13,8 +14,7 @@ services:
               capabilities: [gpu]
     environment:
       - ENV=production
-    entrypoint: ["bash", "-c", "apt-get update && apt-get install -y curl && /entrypoint.sh"]
-    command: ["ollama"]
+    entrypoint: /bin/bash -c "apt update -y && apt install curl -y && ollama start"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:11434"]
       interval: 30s
@@ -32,10 +32,8 @@ services:
       - ollama
     environment:
       - OLLAMA_BASE_URL=http://ollama:11434
-    entrypoint: ["bash", "-c", "apt-get update && apt-get install -y curl && /entrypoint.sh"]
-    command: ["open-webui"]
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
       interval: 30s
       timeout: 10s
       retries: 3
