@@ -1,50 +1,44 @@
 services:
   ollama:
-    image: ollama/ollama:latest  # Use the latest Ollama image from Docker Hub
+    image: ollama/ollama:latest
     networks:
       - llama-net
-    runtime: nvidia  # Enable NVIDIA GPU support for this container
+    runtime: nvidia
     deploy:
       resources:
         reservations:
           devices:
             - driver: nvidia
-              count: 1  # Allocate one NVIDIA GPU to the container
+              count: 1
               capabilities: [gpu]
     environment:
-      - ENV=production  # Set environment to production
+      - ENV=production
     healthcheck:
-      test: ["CMD", "nc", "-z", "localhost", "11434"]  # Healthcheck to verify Ollama is running
+      test: ["CMD", "curl", "-f", "http://localhost:11434"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 10s
+    command: bash -c "apt-get update && apt-get install -y curl && curl -f http://localhost:11434"
 
   open-webui:
-    image: ghcr.io/open-webui/open-webui:latest  # Pull Open-WebUI from GitHub Container Registry
+    image: ghcr.io/open-webui/open-webui:latest
     ports:
-      - "5000:8080"  # Expose Open-WebUI on port 5000 of the host system
+      - "5000:8080"
     networks:
       - llama-net
-#    runtime: nvidia  # Enable NVIDIA GPU support for this container
-#    deploy:
-#     resources:
-#        reservations:
-#          devices:
-#            - driver: nvidia
-#              count: 1  # Allocate one NVIDIA GPU to the container
-#              capabilities: [gpu]
     depends_on:
-      - ollama  # Ensure Ollama starts before Open-WebUI
+      - ollama
     environment:
       - OLLAMA_BASE_URL=http://ollama:11434
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000"]  # Healthcheck to verify Open-WebUI is running
+      test: ["CMD", "curl", "-f", "http://localhost:5000"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 10s
+    command: bash -c "apt-get update && apt-get install -y curl && curl -f http://localhost:5000"
 
 networks:
   llama-net:
-    driver: bridge  # Use bridge networking to connect services within this compose setup
+    driver: bridge
