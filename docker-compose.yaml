@@ -40,7 +40,7 @@ services:
 
   nginx:
     build: ./nginx-dockerfile
-    image: nginx
+    container_name: nginx  
     restart: always
     volumes:
       - nginx-ssl:/etc/nginx/ssl
