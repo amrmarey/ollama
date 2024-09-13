@@ -24,8 +24,8 @@ services:
 
   open-webui:
     image: ghcr.io/open-webui/open-webui:latest
-    ports:
-      - "5000:8080"
+    #ports:
+    #  - "5000:8080"
     networks:
       - llama-net
     depends_on:
@@ -38,6 +38,27 @@ services:
       timeout: 10s
       retries: 3
       start_period: 10s
+
+  nginx:
+    build: ./nginx-dockerfile
+    restart: always
+    volumes:
+      - nginx-ssl:/etc/nginx/ssl
+    healthcheck:
+      test: ["CMD", "sh", "-c", "/usr/sbin/nginx -s stop 2>/dev/null && sleep 1 && /usr/sbin/nginx -t"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - webui
+    networks:
+      - llama-net
+
+volumes:
+  nginx-ssl:
 
 networks:
   llama-net:
