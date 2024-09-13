@@ -13,13 +13,14 @@ services:
               capabilities: [gpu]
     environment:
       - ENV=production
+    entrypoint: ["bash", "-c", "apt-get update && apt-get install -y curl && /entrypoint.sh"]
+    command: ["ollama"]
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:11434"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 10s
-    command: bash -c "apt-get update && apt-get install -y curl && curl -f http://localhost:11434"
 
   open-webui:
     image: ghcr.io/open-webui/open-webui:latest
@@ -31,13 +32,14 @@ services:
       - ollama
     environment:
       - OLLAMA_BASE_URL=http://ollama:11434
+    entrypoint: ["bash", "-c", "apt-get update && apt-get install -y curl && /entrypoint.sh"]
+    command: ["open-webui"]
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5000"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 10s
-    command: bash -c "apt-get update && apt-get install -y curl && curl -f http://localhost:5000"
 
 networks:
   llama-net:
