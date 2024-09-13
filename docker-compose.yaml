@@ -1,4 +1,3 @@
-version: '3'
 services:
   ollama:
     image: ollama/ollama:latest
@@ -41,11 +40,12 @@ services:
 
   nginx:
     build: ./nginx-dockerfile
+    image: nginx
     restart: always
     volumes:
       - nginx-ssl:/etc/nginx/ssl
     healthcheck:
-      test: ["CMD", "sh", "-c", "/usr/sbin/nginx -s stop 2>/dev/null && sleep 1 && /usr/sbin/nginx -t"]
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -53,7 +53,7 @@ services:
       - "80:80"
       - "443:443"
     depends_on:
-      - webui
+      - open-webui
     networks:
       - llama-net
 
