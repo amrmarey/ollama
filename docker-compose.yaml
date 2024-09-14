@@ -45,11 +45,11 @@ services:
     volumes:
       - ./cert:/etc/nginx/cert
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-    #healthcheck:
-    #  test: ["CMD", "curl", "-fLI", "http://localhost"]
-    #  interval: 10s
-    #  timeout: 5s
-    #  retries: 3
+    healthcheck:
+      test: ["CMD", "curl", "-fkLI", "https://localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
     ports:
       - "80:80"
       - "443:443"
