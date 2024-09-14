@@ -1,3 +1,4 @@
+version: '3'
 services:
   ollama:
     image: ollama/ollama:latest
@@ -23,8 +24,10 @@ services:
 
   open-webui:
     image: ghcr.io/open-webui/open-webui:latest
+
     #ports:
     #  - "5000:8080"
+
     networks:
       - llama-net
     depends_on:
@@ -68,3 +71,4 @@ networks:
   llama-net:
     driver: bridge
     enable_ipv6: false
+
