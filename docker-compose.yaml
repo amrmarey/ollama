@@ -39,8 +39,8 @@ services:
       start_period: 10s
 
   nginx:
-    build: ./nginx-dockerfile
-    container_name: nginx  
+    build: .
+    #container_name: nginx  
     restart: always
     volumes:
       - nginx-ssl:/etc/nginx/ssl
@@ -59,7 +59,6 @@ services:
 
 volumes:
   nginx-ssl:
-
 networks:
   llama-net:
     driver: bridge
