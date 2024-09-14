@@ -1,5 +1,1 @@
-#!/bin/bash
-
-openssl req -x509 -newkey rsa:4096 -nodes -out /etc/nginx/ssl/cert/fullchain.pem -keyout /etc/nginx/ssl/cert/privkey.pem -days 3650
-echo "Generated certificates:"
-ls /etc/nginx/ssl/cert/
+openssl req -x509 -newkey rsa:4096 -keyout ./cert/key.pem -out ./cert/cert.pem -sha256 -days 3650 -nodes -subj "/C=XX/ST=StateName/L=CityName/O=CompanyName/OU=CompanySectionName/CN=CommonNameOrHostname"

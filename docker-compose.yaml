@@ -39,16 +39,17 @@ services:
       start_period: 10s
 
   nginx:
-    build: .
-    #container_name: nginx  
-    restart: always
+    image: nginx:latest
+    entrypoint: ["/docker-entrypoint.sh"]
+    command: ["sh", "-c", "chmod 644 /etc/nginx/cert/cert.pem && nginx -g 'daemon off;'"]
     volumes:
-      - nginx-ssl:/etc/nginx/ssl
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
+      - ./cert:/etc/nginx/cert
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    #healthcheck:
+    #  test: ["CMD", "curl", "-fLI", "http://localhost"]
+    #  interval: 10s
+    #  timeout: 5s
+    #  retries: 3
     ports:
       - "80:80"
       - "443:443"
