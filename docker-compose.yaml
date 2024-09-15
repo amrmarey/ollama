@@ -1,4 +1,4 @@
-version: '3'
+#version: '3'
 services:
   ollama:
     image: ollama/ollama:latest
@@ -26,8 +26,15 @@ services:
     image: ghcr.io/open-webui/open-webui:latest
 
     #ports:
-    #  - "5000:8080"
-
+    #  - "5000:8080"  # no need since we use nginx to publish the solution
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
     networks:
       - llama-net
     depends_on:
@@ -48,9 +55,9 @@ services:
     extra_hosts:
       - "$SERVER_NAME:127.0.0.1"
     entrypoint: ["/docker-entrypoint.sh"]
-    command: ["sh", "-c", "chmod 644 /etc/nginx/cert/cert.pem && chmod 640 /etc/nginx/cert/key.pem && nginx -g 'daemon off;'"]
+    command: ["sh", "-c", "openssl req -x509 -newkey rsa:4096 -keyout /etc/nginx/cert/key.pem -out /etc/nginx/cert/cert.pem -sha256 -days $Days -nodes -subj \"/C=$C/ST=$ST/L=$L/O=$O/OU=$OU/CN=$CN\" && chmod 644 /etc/nginx/cert/cert.pem && chmod 640 /etc/nginx/cert/key.pem && nginx -g 'daemon off;'"]
     volumes:
-      - ./cert:/etc/nginx/cert
+      - nginx-ssl:/etc/nginx/cert
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     healthcheck:
       test: ["CMD", "curl", "-vIk", "--http2", "-A Healthcheck" , "https://$SERVER_NAME"]
