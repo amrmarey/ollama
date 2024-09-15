@@ -159,4 +159,4 @@ For inquiries or issues, please reach out to:
 
 ---
 
-Enjoy building your secure AI server on-premises with **Ollama**! 🚀
+Enjoy building your secure AI server with **Ollama**! 🚀
