@@ -1,4 +1,4 @@
-# AI Ollama with secured WebUI in Docker Container Setup
+# AI Ollama with secured WebUI in Docker Container
 
 [![Docker Compose](https://img.shields.io/badge/Docker-Compose-2496ED.svg?logo=docker&style=flat)](https://docs.docker.com/compose/) [![Nginx](https://img.shields.io/badge/Nginx-009639.svg?logo=nginx&style=flat)](https://www.nginx.com/) ![GitHub repo size](https://img.shields.io/github/repo-size/amrmarey/ollama?logo=github) [![License](https://img.shields.io/github/license/amrmarey/ollama)](https://github.com/amrmarey/ollama/blob/main/LICENSE) ![Issues](https://img.shields.io/github/issues/amrmarey/ollama)
 
@@ -10,7 +10,7 @@ Nginx is integrated to manage and **secure the WebUI interface**, ensuring robus
 
 ## 📑 Table of Contents
 
-- [AI Ollama with secured WebUI in Docker Container Setup](#ai-ollama-with-secured-webui-in-docker-container-setup)
+- [AI Ollama with secured WebUI in Docker Container](#ai-ollama-with-secured-webui-in-docker-container)
   - [📑 Table of Contents](#-table-of-contents)
   - [🛠️ Getting Started](#️-getting-started)
     - [Key Features:](#key-features)
