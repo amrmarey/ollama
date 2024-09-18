@@ -56,8 +56,9 @@ services:
     build: 
       context: .
       dockerfile: automatic1111.dockerfile
-    #ports:
-      # - "7860:7860" # it will be called back to back :) 
+    ports:
+      - "7860:7860" # it will be called back to back :) 
+
     runtime: nvidia
     deploy:
       resources:
@@ -67,9 +68,12 @@ services:
               count: 1
               capabilities: [gpu]    
     environment:
-      - NVIDIA_DRIVER_CAPABILITIES=all
+      - NVIDIA_DRIVER_CAPABILITIES = all
+      - ATTENTION_MECHANISM = none
     volumes:
       - automatic1111-data:/app/models
+    #command: pip install xformers --extra-index-url https://download.pytorch.org/whl/cu116 --upgrade
+    
     networks:
       - llama-net
     healthcheck:
