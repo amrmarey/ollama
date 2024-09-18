@@ -52,9 +52,10 @@ services:
       retries: 3
       start_period: 10s
   automatic1111:
-    image: automatic1111
+    #image: automatic1111
     build: 
-      dockerfile: ./automatic1111.dockerfile
+      context: .
+      dockerfile: automatic1111.dockerfile
     #ports:
       # - "7860:7860" # it will be called back to back :) 
     runtime: nvidia
@@ -112,4 +113,3 @@ networks:
   llama-net:
     driver: bridge
     enable_ipv6: false
-
