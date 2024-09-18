@@ -35,18 +35,50 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+    volumes:
+      - open-webui:/app/backend/data
     networks:
       - llama-net
     depends_on:
       - ollama
     environment:
       - OLLAMA_BASE_URL=http://ollama:11434
+      - AUTOMATIC1111_BASE_URL=http://automatic1111:7860/
+      - ENABLE_IMAGE_GENERATION=True
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 10s
+  automatic1111:
+    image: automatic1111
+    build: 
+      dockerfile: ./automatic1111.dockerfile
+    #ports:
+      # - "7860:7860" # it will be called back to back :) 
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]    
+    environment:
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    volumes:
+      - automatic1111-data:/app/models
+    networks:
+      - llama-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7860"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: always
+    depends_on:
+      - open-webui
 
   nginx:
     image: nginx:latest
@@ -74,6 +106,8 @@ services:
 
 volumes:
   nginx-ssl:
+  automatic1111-data:
+  open-webui:
 networks:
   llama-net:
     driver: bridge
